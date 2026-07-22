@@ -1,0 +1,38 @@
+---
+import Default from '@astrojs/starlight/components/Hero.astro'
+
+// Starlight's documented page-title anchor (`PAGE_TITLE_ID` in @astrojs/starlight/constants).
+const PAGE_TITLE_ID = '_top'
+
+const { data } = Astro.props.entry
+const hero = data.hero ?? {}
+const { title = data.title, tagline, image, actions = [] } = hero
+---
+
+{
+	image ? (
+		// Pages that set a hero image keep Starlight's stock hero layout.
+		<Default {...Astro.props} />
+	) : (
+		<section class="hero">
+			<div class="hero-body">
+				<h1 id={PAGE_TITLE_ID} class="hero-title" data-page-title set:html={title} />
+				{tagline && <p class="hero-tagline" set:html={tagline} />}
+				{actions.length > 0 && (
+					<div class="hero-actions">
+						{actions.map((action: any) => {
+							const { attrs = {}, icon, link, text, variant } = action
+							const { class: className, ...rest } = attrs
+							return (
+								<a href={link} class:list={['hero-btn', variant ?? 'primary', className]} {...rest}>
+									{text}
+									{icon?.html && <Fragment set:html={icon.html} />}
+								</a>
+							)
+						})}
+					</div>
+				)}
+			</div>
+		</section>
+	)
+}
