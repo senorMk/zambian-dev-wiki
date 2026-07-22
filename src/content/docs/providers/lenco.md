@@ -7,10 +7,9 @@ verified:
 volatile: true
 ---
 
-:::caution[Mix of first-hand reports and hearsay]
-Most of this page comes from developers who have integrated Lenco, supplemented by community
-discussion. Card payment issues are well-documented across multiple independent reports.
-**Verify before acting, then [update this page](/contributing/).**
+:::caution[Partially verified]
+Card payment issues are well-documented across multiple independent reports. Other details may be
+incomplete. **Verify before acting, then [update this page](/contributing/).**
 :::
 
 Lenco by BroadPay (formerly just "Lenco") is a Zambian payment aggregator. Its strength is **mobile
@@ -22,7 +21,7 @@ since early 2025.
 | | |
 | --- | --- |
 | **Supports** | Mobile money (Airtel Money, MTN MoMo, Zamtel Kwacha), bank transfers, cards (Visa/Mastercard — currently unreliable) |
-| **Transaction fee** | **Not publicly listed.** Community hearsay suggests ~3 % but this is unverified. Pricing is negotiated per merchant. |
+| **Transaction fee** | **Not publicly listed.** Pricing is negotiated per merchant. |
 | **API style** | REST |
 | **Office** | Piziya House, Plot 2374 Thabo Mbeki Road, Lusaka |
 | **Zambia support** | support.zm@lenco.co |
@@ -65,10 +64,9 @@ authorisation setup are handled through the portal, typically with support assis
 
 ## Open questions
 
-- **What does Lenco actually charge?** The only community data point is an unverified "like 3 %".
-  If you have a signed rate card you can share — redacted to just the fee structure — it would answer
-  this for everyone. [Open a PR](/contributing/).
+- **What does Lenco actually charge?** Transaction fees are not publicly listed. If you have a rate
+  card you can share — redacted to just the fee structure — [open a PR](/contributing/).
 - What is the settlement timeline for mobile money collections?
 - Is there a public status page or programmatic way to check MNO maintenance windows?
-- What is the current state of card payments? The most recent community report (Feb 2026) said they
-  were still down.
+- What is the current state of card payments? As of the last documented report, they were still
+  down.

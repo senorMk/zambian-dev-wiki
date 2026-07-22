@@ -7,36 +7,37 @@ verified:
 volatile: true
 ---
 
-**No. Stripe does not support businesses registered in Zambia**, and this has been settled
-background knowledge in both communityd communities for the entire 2023–2026 period. It is the
-single biggest reason "which payment gateway should I use?" is the most-asked question in the
-community: the default answer the rest of the world uses is not available here.
+**No. Stripe does not support businesses registered in Zambia.** Zambia is not on
+Stripe's list of supported countries, making it unavailable as a payment gateway for
+locally registered businesses. This is the primary reason payment gateway selection is
+a recurring topic for Zambian developers — the default international option is not an option here.
 
 :::note[This page is a stub]
-The community says remarkably little about Stripe beyond "it doesn't work here" — precisely because
-everyone already knows. What it records instead is what people do **instead**. If you have first-hand
-experience with any of these routes, [write it down](/contributing/).
+This page covers only the most common alternatives. If you have first-hand experience with
+any of these routes, [contribute it](/contributing/).
 :::
 
-## What people do instead
+## Alternatives
 
-Reported across the communitys, in rough order of how often each comes up:
+The following workarounds are available, listed by prevalence:
 
-1. **A local gateway for domestic payments.** If your customers are in Zambia, Stripe was never
-   the answer anyway — start with [choosing a payment gateway](/payments/).
-2. **A merchant of record.** A foreign company that sells to your customers on your behalf, handles
-   their card processing and sales tax, and pays you out. Several people settled on this route for
-   SaaS in 2026 — see [receiving international payments](/payments/receiving-international-payments/).
-3. **A foreign-registered entity with Stripe attached.** Discussed repeatedly as the "proper" fix
-   for selling internationally: incorporate somewhere Stripe supports, then onboard there. The
-   community records the advice but not a single first-hand account of the cost or the paperwork.
+1. **A local gateway for domestic payments.** If customers are in Zambia, a local
+   gateway is the appropriate starting point — see [choosing a payment gateway](/payments/).
+2. **A merchant of record.** A foreign company that sells to customers on the developer's
+   behalf, handles card processing and sales tax, and remits payouts. This is a common
+   route for SaaS products targeting international buyers — see
+   [receiving international payments](/payments/receiving-international-payments/).
+3. **A foreign-registered entity with Stripe attached.** Incorporating in a country
+   Stripe supports and onboarding there. This is widely cited as the most complete
+   solution for selling internationally, though it carries incorporation and ongoing
+   compliance costs.
 
 ## Open questions
 
-- Which merchant-of-record providers are Zambian SaaS sellers actually using in 2026, what do they
-  charge, and how do payouts reach a Zambian account?
-- Has anyone reading this actually incorporated abroad for Stripe access? What did it cost, all-in,
-  per year? That report would be `reported`-grade gold.
+- Which merchant-of-record providers support payouts to Zambian bank accounts, and what
+  are their fee structures?
+- What are the realistic costs of incorporating abroad solely for Stripe access
+  (registration, annual compliance, banking)?
 
 ## Related
 

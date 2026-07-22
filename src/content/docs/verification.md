@@ -60,12 +60,9 @@ Some categories can cause real harm if wrong. These require `primary` sourcing o
 
 - **Licensing and legal requirements.** Whether you need a Bank of Zambia licence, what it costs,
   what happens if you operate without one. Get it from BOZ's own published requirements, and say so.
-- **Tax and regulatory obligations.** ZRA, PACRA, 2PIN, the Cyber Crime Act, the Data Protection Act.
+- **Tax and regulatory obligations.** ZRA, PACRA, the Cyber Crime Act, the Data Protection Act.
 - **Contract terms.** Rolling reserves, exclusivity, chargeback liability. Quote the contract clause
   or don't state it.
-- **Security guidance.** Community discussions have included the claim that API keys need little protection because
-  "they are only used for authentication and authorisation." That is wrong and it was corrected in
-  the thread. Wrong security advice on a wiki gets copied.
 
 ## What gets reverted
 

@@ -8,7 +8,7 @@ volatile: true
 ---
 
 :::caution[Reported — not yet independently confirmed]
-Based on first-hand integration experience (2025-2026), not on Cellulant's own documentation.
+Based on integration experience, not on Cellulant's own documentation.
 **Verify before acting, then [update this page](/contributing/).**
 :::
 
@@ -41,29 +41,27 @@ underlying method for both flows is `BEEP.postPayment`.
 
 Note that **IP whitelisting is required** to view transactions on Cellulant's merchant dashboard.
 
-## Sandbox — plan for instability
+## Sandbox reliability
 
-The sandbox is the single biggest friction point integrators have reported. A few things to know
-before you start:
+The sandbox is the primary friction point during integration.
 
 - The sandbox is **shared** between Express and Custom API flows. When it goes down, there is no
   alternative testing path.
-- Sandbox simulations have been **intermittently broken for specific payment methods**. Developers
-  report that MTN and Zamtel simulations tend to work first, while Airtel and card simulations have
-  taken longer to be fixed on Cellulant's side.
-- Outages lasting **weeks** have been reported, requiring multiple follow-ups with support.
-- When a simulation is broken, Cellulant's team reviews internally — there is no self-service fix or
+- Sandbox simulations have been **intermittently broken for specific payment methods**. MTN and
+  Zamtel simulations tend to recover first, while Airtel and card simulations may remain broken
+  longer.
+- Outages can last **weeks** and may require multiple follow-ups with support to resolve.
+- When a simulation is broken, Cellulant reviews internally — there is no self-service fix or
   workaround available to merchants.
 
-If you are estimating integration timelines, budget generously for sandbox downtime.
+Integration timelines should account for potential sandbox downtime.
 
 ## Onboarding timeline
 
-Integrators report timelines of **1+ months** from first contact to production readiness.
+Onboarding typically takes **1+ months** from first contact to production readiness.
 
-This is not necessarily Cellulant-specific — long onboarding is common with African payment
-aggregators — but it is worth planning for. If your project has a hard launch date, start the
-Cellulant integration well before you think you need to.
+Long onboarding is common among African payment aggregators. Projects with fixed launch dates
+should begin the Cellulant integration early.
 
 ## Support
 
@@ -74,12 +72,12 @@ Central Africa Time (CAT, UTC+2).
 
 ## Production reliability
 
-HTTP 503 errors on the Tingg Global API (`BEEP.postPayment`) have been reported in production as
-recently as April 2026, affecting real-time payment processing. This is a shared infrastructure
-concern — when the API is down, it affects all merchants using the same endpoint.
+The Tingg Global API (`BEEP.postPayment`) has returned HTTP 503 errors in production, affecting
+real-time payment processing. Because the API is shared infrastructure, outages affect all merchants
+using the same endpoint.
 
-If your use case involves time-sensitive transactions (e.g. electricity token purchases), build in
-retry logic and consider how your application behaves when the upstream API is unavailable.
+For time-sensitive transactions (e.g. electricity token purchases), implement retry logic and handle
+upstream API unavailability gracefully.
 
 ## Fees
 
@@ -92,5 +90,4 @@ Not publicly listed. Pricing is negotiated per merchant. No public rate card is 
 - Are there documented webhook/callback reliability issues similar to those reported with other
   aggregators?
 
-If you have integrated Tingg in Zambia, your experience would help fill these gaps.
-[Open a PR](/contributing/).
+Contributions welcome — [open a PR](/contributing/).

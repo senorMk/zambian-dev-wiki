@@ -1,6 +1,6 @@
 ---
 title: PayPal in Zambia
-description: What the community reports about PayPal for Zambian developers — very little beyond one gateway route. Open questions inside.
+description: PayPal availability and limitations for Zambian developers — limited local gateway support and open questions.
 verified:
   date: 2026-07-19
   level: hearsay
@@ -8,34 +8,32 @@ volatile: true
 ---
 
 :::note[This page is a stub]
-PayPal is one of the topics the community has said *least* about — it comes up rarely, and mostly as
-something foreign customers ask to pay with, not something a Zambian business builds on. This page
-records the little that is known and marks the rest as open questions.
+PayPal sees limited use among Zambian developers. It surfaces mainly as a payment method requested
+by foreign customers, not as a platform Zambian businesses build on. This page covers confirmed
+details and marks the rest as open questions.
 :::
 
-## What the community reports
+## Known limitations
 
-- **No local gateway supports PayPal.** Asked in November 2024 whether the gateways people use
-  support PayPal, the answer was that card is the only option on them — and that for PayPal support
-  you would need to look at international providers **such as 2Checkout**. Whether 2Checkout still
-  onboards Zambian businesses in 2026 is unverified.
-- **PayPal-adjacent workarounds people actually use** — Payoneer balances and cards, Deel-issued
+- **No local gateway supports PayPal.** Zambian payment gateways offer card processing only.
+  Accepting PayPal requires an international provider **such as 2Checkout**. Whether 2Checkout
+  currently onboards Zambian businesses is unverified.
+- **Alternative international payment methods** — Payoneer balances and cards, Deel-issued
   cards, merchants of record — are documented under
   [receiving international payments](/payments/receiving-international-payments/).
 
-## What the community has not answered
+## Open questions
 
-These questions remain unanswered:
+The following remain unverified:
 
-- Can a Zambian PayPal account **withdraw** to a local bank or card in 2026, and at what cost?
-- What are the receiving limits and holds on Zambian accounts in practice?
+- Can a Zambian PayPal account **withdraw** to a local bank or card, and at what cost?
+- What are the receiving limits and holds on Zambian accounts?
 - Does 2Checkout (or any PayPal-supporting gateway) currently onboard from Zambia, and what does
   it charge?
 
-If you have first-hand answers, this page is waiting for them.
-[How to contribute](/contributing/).
+Contributions welcome — see [how to contribute](/contributing/).
 
 ## Related
 
-- [Receiving money from abroad](/payments/receiving-international-payments/) — the routes people use instead
-- [Does Stripe work in Zambia?](/payments/stripe/) — the other perennial question
+- [Receiving money from abroad](/payments/receiving-international-payments/) — alternative routes for international payments
+- [Does Stripe work in Zambia?](/payments/stripe/) — another commonly asked question

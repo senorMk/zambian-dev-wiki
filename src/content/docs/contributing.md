@@ -44,7 +44,7 @@ title: Which payment gateway should you use in Zambia?
 description: One sentence. This becomes the Google result snippet — write it for a human.
 verified:
   date: 2026-07-19        # ISO date YOU checked it
-  by: your-github-handle
+  by: your-github-handle  # GitHub username — no real name or email required
   level: primary          # primary | reported | hearsay
 volatile: true            # true if fees/availability/uptime
 ---

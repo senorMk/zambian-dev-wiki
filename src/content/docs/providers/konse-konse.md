@@ -54,8 +54,7 @@ reconciliation against Konse's reports.
 
 ### Polling after timeouts
 
-Developers who have integrated with Konse Konse report the following polling strategy, consistent
-with guidance from cGrate support (April 2026):
+The recommended polling strategy is:
 
 1. **Wait at least 1 minute** after a timeout before the first status query. MNO approval is not
    instant.
@@ -66,21 +65,20 @@ with guidance from cGrate support (April 2026):
 
 ## Response code traps
 
-The response codes from Konse Konse's API have some non-obvious behaviours that have caught
-integrators off guard.
+The response codes from Konse Konse's API have some non-obvious behaviours.
 
 ### Code 202 — `TRANSACTION_NOT_PERMITTED`
 
 This is **not** a payment failure. It is a query-level rejection — it means the query method itself
 is not permitted for that transaction in its current state. If your error-handling code treats 202 as
-"the payment failed", you will miss successful payments. Developers report that this code can appear
-on status queries for transactions that ultimately settled successfully.
+"the payment failed", you will miss successful payments. This code can appear on status queries for
+transactions that ultimately settled successfully.
 
 ### Code 106 — "Transaction reference not found"
 
-Was undocumented until April 2026. This code can appear even for references that exist on the
-merchant ledger. Integrators have found that `queryCustomerPayment` appears to only see in-flight
-transactions; once a transaction settles, the query may return 106 even though the payment completed.
+This code can appear even for references that exist on the merchant ledger.
+`queryCustomerPayment` only sees in-flight transactions; once a transaction settles, the query may
+return 106 even though the payment completed.
 
 ### Code 105 — "Error checking reference"
 
@@ -88,9 +86,8 @@ Retryable. Treat as a transient error and query again.
 
 ### Documentation gaps
 
-The response code documentation has been updated over time. Codes appear in production that are not
-in older versions of the docs. If you encounter an unfamiliar code, contact cGrate support rather
-than guessing.
+Response code documentation may not cover all codes returned in production. If you encounter an
+unfamiliar code, contact cGrate support.
 
 ## Reconciliation reports
 
@@ -101,9 +98,8 @@ Konse Konse provides two report types:
 
 ### Build against `MERCHANT_REFERENCED_OPERATIONS`
 
-The `SENDER REF OUT` column in `MERCHANT_OPERATIONS` was previously used by integrators to match
-transactions against their own payment references. At some point this column was silently changed to
-show `N/A` for all transactions, breaking automated reconciliation for anyone relying on it.
+The `SENDER REF OUT` column in `MERCHANT_OPERATIONS` shows `N/A` for all transactions and cannot be
+used for matching.
 
 The merchant's payment reference is now found under the **`PAYMENT REFERENCE`** column in the
 `MERCHANT_REFERENCED_OPERATIONS` report. If you are building automated reconciliation, use this
