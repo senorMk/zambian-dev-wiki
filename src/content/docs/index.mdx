@@ -1,0 +1,67 @@
+---
+title: Zambia Dev Wiki
+description: A community-maintained reference for building software in Zambia — payment gateways, mobile money, card acceptance, hosting, rates and regulation.
+template: splash
+hero:
+  tagline: Answers to the questions Zambian developers keep asking — written down once, by the community.
+  actions:
+    - text: Choosing a payment gateway
+      link: /payments/
+      icon: right-arrow
+      variant: primary
+    - text: Contribute a correction
+      link: /contributing/
+      icon: pencil
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components'
+
+## Why this exists
+
+The same questions get asked in Zambian developer communities every few weeks, get answered from
+memory, and the answer scrolls away. "Which payment gateway should I use?" comes up over and over —
+and the answers never stick.
+
+Meanwhile the answers rot. A provider that worked in 2024 is down in 2025. A fee quoted once is
+repeated for two years after it changed. Someone pastes an AI answer about the wrong company entirely
+and nobody notices.
+
+This wiki is an attempt to write those answers down **once**, in public, with dates on them.
+
+<CardGrid>
+  <Card title="Payments" icon="approve-check">
+    Which gateway to use, what they charge, what actually settles.
+    [Start here](/payments/)
+  </Card>
+  <Card title="Cards" icon="warning">
+    Card acceptance in Zambia is in a bad state. [What still works](/payments/card-payments/)
+  </Card>
+  <Card title="Getting paid from abroad" icon="seti:money">
+    Stripe, PayPal, Payoneer, Deel and the workarounds people actually use.
+    [Read more](/payments/receiving-international-payments/)
+  </Card>
+  <Card title="Contribute" icon="github">
+    Every page has an "Edit this page" link. Corrections are the most valuable contribution.
+    [How it works](/contributing/)
+  </Card>
+</CardGrid>
+
+## How to read this wiki
+
+Every factual page carries a **verification stamp**: when a human last checked the claim, and
+against what. We grade sources as `primary` (the provider's own docs or support),
+`reported` (a contributor's own first-hand experience), or `hearsay` (repeated in community
+discussion, never re-checked).
+
+**Treat `hearsay` as a lead, not a fact.** Contributions that haven't been independently verified
+are marked hearsay. Upgrading them is the single most useful thing you can do here. See [how we verify claims](/verification/).
+
+## What this wiki is not
+
+- **Not legal or financial advice.** Licensing and tax pages describe what practitioners report.
+  They are not a substitute for a lawyer or the regulator's own guidance.
+- **Not a vendor directory.** Providers and their staff are welcome to correct facts about their
+  own products, [with disclosure](/contributing/#if-you-work-for-a-provider). Marketing copy gets reverted.
+- **Not a support channel.** If a provider's API is down, this wiki can tell you whether that is
+  normal. It cannot fix it.

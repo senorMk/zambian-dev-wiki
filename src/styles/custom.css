@@ -1,0 +1,536 @@
+/* ==========================================================================
+   Zambia Dev Wiki — editorial reference theme
+   The page is a document, not a product page: flat surfaces, hairline rules,
+   hierarchy carried by size/weight/space rather than colour or ornament.
+   Green is a signal colour (links, current page). Orange means "caution /
+   unverified" and is never used decoratively.
+   ========================================================================== */
+
+:root {
+	/* Dark mode: near-neutral charcoal. Saturation on the mid greys is kept
+	   under ~6% so the UI reads as ink-on-paper rather than "green theme". */
+	--sl-color-white: hsl(200, 8%, 96%);
+	--sl-color-gray-1: hsl(200, 7%, 89%);
+	--sl-color-gray-2: hsl(205, 6%, 73%);
+	--sl-color-gray-3: hsl(205, 5%, 54%);
+	--sl-color-gray-4: hsl(208, 5%, 36%);
+	--sl-color-gray-5: hsl(210, 6%, 22%);
+	--sl-color-gray-6: hsl(212, 7%, 14%);
+	--sl-color-black: hsl(215, 9%, 9%);
+
+	/* Accent: deep Zambian green, pulled back from neon so it can sit inline
+	   in body copy without vibrating against the text. */
+	--sl-color-accent-low: hsl(153, 40%, 15%);
+	--sl-color-accent: hsl(152, 46%, 40%);
+	--sl-color-accent-high: hsl(150, 45%, 78%);
+
+	/* Caution signal only (Starlight also uses these for `caution` asides). */
+	--sl-hue-orange: 27;
+	--sl-color-orange-low: hsl(var(--sl-hue-orange), 40%, 18%);
+	--sl-color-orange: hsl(var(--sl-hue-orange), 70%, 54%);
+	--sl-color-orange-high: hsl(var(--sl-hue-orange), 70%, 82%);
+
+	/* 45rem keeps prose near a 70–80 character measure; tables are allowed to
+	   scroll rather than widening the whole column. */
+	--sl-content-width: 45rem;
+
+	--zdw-green: var(--sl-color-accent);
+	--zdw-orange: hsl(27, 70%, 54%);
+
+	/* Serif display face for the hero title only. System-resident, so no web
+	   font request and no layout shift. */
+	--zdw-font-display: ui-serif, Georgia, 'Times New Roman', serif;
+
+	--zdw-radius: 3px;
+	--zdw-radius-lg: 4px;
+}
+
+:root[data-theme='light'] {
+	/* Warm off-white paper, warm near-black ink. */
+	--sl-color-white: hsl(30, 10%, 12%);
+	--sl-color-gray-1: hsl(30, 8%, 18%);
+	--sl-color-gray-2: hsl(30, 6%, 28%);
+	--sl-color-gray-3: hsl(30, 5%, 42%);
+	--sl-color-gray-4: hsl(30, 5%, 56%);
+	--sl-color-gray-5: hsl(35, 10%, 82%);
+	--sl-color-gray-6: hsl(38, 18%, 92%);
+	--sl-color-gray-7: hsl(40, 30%, 96%);
+	--sl-color-black: hsl(42, 36%, 98%);
+
+	/* hsl(154 72% 22%) ≈ 6.4:1 against the paper background — clears AA with
+	   headroom for the smaller UI text that also uses it. */
+	--sl-color-accent-low: hsl(150, 30%, 90%);
+	--sl-color-accent: hsl(154, 72%, 22%);
+	--sl-color-accent-high: hsl(154, 70%, 17%);
+
+	--sl-color-orange-low: hsl(30, 60%, 91%);
+	--sl-color-orange: hsl(25, 85%, 38%);
+	--sl-color-orange-high: hsl(22, 85%, 28%);
+
+	--zdw-green: var(--sl-color-accent);
+	--zdw-orange: hsl(22, 85%, 32%);
+}
+
+/* ==========================================================================
+   Base typography
+   ========================================================================== */
+
+::selection {
+	background: var(--sl-color-accent-low);
+	color: var(--sl-color-white);
+}
+
+:focus-visible {
+	outline: 2px solid var(--sl-color-accent);
+	outline-offset: 2px;
+	border-radius: var(--zdw-radius);
+}
+
+.sl-markdown-content {
+	line-height: 1.7;
+}
+
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.sl-markdown-content h4 {
+	letter-spacing: -0.011em;
+	line-height: 1.25;
+	text-wrap: balance;
+}
+
+.sl-markdown-content h1 {
+	font-weight: 700;
+	font-size: var(--sl-text-4xl);
+}
+
+/* h2 acts as the chapter break on these long comparison pages: a hairline
+   above it does the segmenting work that a coloured band would otherwise do. */
+.sl-markdown-content h2 {
+	margin-block-start: 3.25rem;
+	padding-block-start: 1.25rem;
+	border-top: 1px solid var(--sl-color-hairline-light);
+	font-weight: 650;
+}
+.sl-markdown-content h2:first-child {
+	margin-block-start: 0;
+	padding-block-start: 0;
+	border-top: 0;
+}
+
+.sl-markdown-content h3 {
+	margin-block-start: 2.25rem;
+	font-weight: 650;
+}
+
+.sl-markdown-content h4 {
+	margin-block-start: 1.75rem;
+	font-weight: 600;
+}
+
+.sl-markdown-content strong {
+	font-weight: 640;
+	color: var(--sl-color-white);
+}
+
+.sl-markdown-content a {
+	color: var(--sl-color-text-accent);
+	text-decoration-color: color-mix(in srgb, var(--sl-color-text-accent) 40%, transparent);
+	text-underline-offset: 0.2em;
+	transition: text-decoration-color 0.15s ease;
+}
+.sl-markdown-content a:hover {
+	text-decoration-color: currentColor;
+}
+
+.sl-markdown-content :not(pre) > code {
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: var(--zdw-radius);
+	background-color: var(--sl-color-gray-6);
+	padding: 0.1em 0.35em;
+	font-size: 0.9em;
+}
+
+.sl-markdown-content pre {
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: var(--zdw-radius);
+}
+
+/* The one permitted gradient: a rule that fades at both ends. */
+.sl-markdown-content hr {
+	border: 0;
+	height: 1px;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		var(--sl-color-hairline-light) 15%,
+		var(--sl-color-hairline-light) 85%,
+		transparent
+	);
+}
+
+.sl-markdown-content blockquote {
+	border-inline-start: 2px solid var(--sl-color-gray-4);
+	border-radius: 0;
+	background: none;
+	padding: 0.1rem 0 0.1rem 1.25rem;
+	font-style: normal;
+	color: var(--sl-color-gray-2);
+}
+
+/* ==========================================================================
+   Header & sidebar
+   ========================================================================== */
+
+.header {
+	background-color: var(--sl-color-bg-nav);
+	border-bottom: 1px solid var(--sl-color-hairline-shade);
+	box-shadow: none;
+}
+
+.site-title {
+	font-weight: 650;
+	letter-spacing: -0.011em;
+}
+
+.sidebar-content a {
+	border-radius: var(--zdw-radius);
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
+	background-color: color-mix(in srgb, var(--sl-color-accent) 10%, transparent);
+	color: var(--sl-color-white);
+	font-weight: 600;
+	box-shadow: inset 2px 0 0 var(--sl-color-accent);
+}
+
+.sidebar-content .large,
+.sidebar-content summary {
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+}
+
+/* ==========================================================================
+   Tables — the primary content type on this wiki (fees, provider comparisons)
+   ========================================================================== */
+
+.sl-markdown-content table {
+	display: block;
+	overflow-x: auto;
+	max-width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: var(--sl-text-sm);
+	/* Fee and rate columns must align digit-for-digit to be scannable. */
+	font-variant-numeric: tabular-nums;
+}
+.sl-markdown-content th {
+	/* Weight comes from the rule under the row, not a filled grey block. */
+	background: none;
+	border-bottom: 2px solid var(--sl-color-gray-5);
+	font-weight: 620;
+	color: var(--sl-color-white);
+	text-align: start;
+	white-space: nowrap;
+}
+.sl-markdown-content th,
+.sl-markdown-content td {
+	padding: 0.55rem 1rem 0.55rem 0;
+	border-bottom: 1px solid var(--sl-color-hairline-light);
+	vertical-align: top;
+}
+.sl-markdown-content th:last-child,
+.sl-markdown-content td:last-child {
+	padding-inline-end: 0;
+}
+.sl-markdown-content tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+/* ==========================================================================
+   Cards & asides
+   ========================================================================== */
+
+.card {
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: var(--zdw-radius-lg);
+	background: none;
+	transition: border-color 0.2s ease;
+}
+.card:hover {
+	border-color: var(--sl-color-gray-4);
+}
+.card .title {
+	font-weight: 640;
+	letter-spacing: -0.011em;
+	color: var(--sl-color-white);
+}
+.card .title .icon {
+	color: var(--sl-color-gray-3);
+}
+
+.starlight-aside {
+	border-radius: 0;
+	border-inline-start-width: 2px;
+}
+
+/* ==========================================================================
+   Hero (splash page)
+   ========================================================================== */
+
+.hero {
+	padding-block: clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+	border-bottom: 1px solid var(--sl-color-hairline-light);
+	margin-bottom: 2.5rem;
+}
+
+.hero-body {
+	max-width: 44rem;
+}
+
+.hero-title {
+	font-family: var(--zdw-font-display);
+	font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+	font-weight: 600;
+	letter-spacing: -0.015em;
+	line-height: 1.1;
+	color: var(--sl-color-white);
+	margin: 0;
+	text-wrap: balance;
+}
+
+.hero-tagline {
+	margin-top: 1rem;
+	max-width: 38rem;
+	font-size: var(--sl-text-lg);
+	line-height: 1.6;
+	color: var(--sl-color-gray-2);
+}
+.hero-tagline strong {
+	color: var(--sl-color-white);
+	font-weight: 600;
+}
+
+.hero-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.75rem 1.5rem;
+	margin-top: 1.75rem;
+}
+
+.hero-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: var(--sl-text-base);
+	font-weight: 550;
+	line-height: 1.25;
+	text-decoration: none;
+	border-radius: var(--zdw-radius);
+	transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.hero-btn svg {
+	width: 1em;
+	height: 1em;
+	flex-shrink: 0;
+}
+
+.hero-btn.primary,
+.hero-btn.secondary {
+	padding: 0.55rem 1.1rem;
+}
+
+.hero-btn.primary {
+	background-color: var(--sl-color-accent);
+	border: 1px solid var(--sl-color-accent);
+	color: var(--sl-color-black);
+}
+.hero-btn.primary:hover {
+	background-color: var(--sl-color-accent-high);
+	border-color: var(--sl-color-accent-high);
+}
+
+.hero-btn.secondary {
+	border: 1px solid var(--sl-color-gray-5);
+	color: var(--sl-color-white);
+}
+.hero-btn.secondary:hover {
+	border-color: var(--sl-color-gray-4);
+}
+
+/* Plain text link with an arrow — no chrome at all. */
+.hero-btn.minimal {
+	padding: 0.55rem 0;
+	color: var(--sl-color-text-accent);
+	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, var(--sl-color-text-accent) 35%, transparent);
+	text-underline-offset: 0.25em;
+}
+.hero-btn.minimal:hover {
+	text-decoration-color: currentColor;
+}
+
+/* Fact strip: "71,492 messages · 2 groups · 3 yr". Hairline-separated so it
+   reads as a masthead byline rather than a row of metric cards. */
+.hero-facts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 1.5rem;
+	margin: 2rem 0 0;
+	padding-top: 1.25rem;
+	border-top: 1px solid var(--sl-color-hairline-light);
+}
+.hero-fact {
+	display: flex;
+	align-items: baseline;
+	gap: 0.45rem;
+	padding-inline-end: 1.5rem;
+	border-inline-end: 1px solid var(--sl-color-hairline-light);
+}
+.hero-fact:last-child {
+	border-inline-end: 0;
+	padding-inline-end: 0;
+}
+.hero-fact dd {
+	order: -1; /* figure before label, without depending on DOM order */
+	margin: 0;
+	font-size: var(--sl-text-base);
+	font-weight: 620;
+	font-variant-numeric: tabular-nums;
+	color: var(--sl-color-white);
+}
+.hero-fact dt {
+	font-size: var(--sl-text-xs);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+}
+
+/* ==========================================================================
+   Stat band & source cards (used inside markdown content)
+   ========================================================================== */
+
+.stat-band {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+	gap: 0;
+	margin-block: 2rem;
+	border-block: 1px solid var(--sl-color-hairline-light);
+}
+.stat {
+	padding: 1rem 1.25rem 1rem 0;
+	background: none;
+}
+.stat + .stat {
+	padding-inline-start: 1.25rem;
+	border-inline-start: 1px solid var(--sl-color-hairline-light);
+}
+.stat-value {
+	display: block;
+	font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+	font-weight: 620;
+	letter-spacing: -0.015em;
+	font-variant-numeric: tabular-nums;
+	line-height: 1.15;
+	color: var(--sl-color-white);
+}
+.stat-label {
+	display: block;
+	margin-top: 0.35rem;
+	font-size: var(--sl-text-xs);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+}
+
+.source-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+	gap: 1px;
+	margin-block: 2rem;
+	/* 1px grid gap over a hairline-coloured bed draws the dividers without
+	   giving each card its own boxed border. */
+	background: var(--sl-color-hairline-light);
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: var(--zdw-radius-lg);
+	overflow: hidden;
+}
+.source-card {
+	padding: 1.25rem 1.375rem;
+	background: var(--sl-color-bg);
+}
+.source-card h3 {
+	margin: 0;
+	font-size: var(--sl-text-base);
+	font-weight: 640;
+	letter-spacing: -0.011em;
+	border-top: 0;
+	padding-top: 0;
+}
+.source-card .source-tag {
+	margin: 0.3rem 0 0;
+	font-size: var(--sl-text-xs);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+}
+.source-card dl {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 0.3rem 1.25rem;
+	margin: 1rem 0 0;
+	font-size: var(--sl-text-sm);
+}
+.source-card dt {
+	color: var(--sl-color-gray-3);
+}
+.source-card dd {
+	margin: 0;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+	color: var(--sl-color-white);
+}
+
+/* ==========================================================================
+   Provenance note (site-wide footer)
+   ========================================================================== */
+
+.provenance {
+	display: block;
+	margin-top: 3rem;
+	padding: 0.25rem 0 0.25rem 1rem;
+	border-inline-start: 2px solid var(--sl-color-hairline-shade);
+}
+.provenance-title {
+	margin: 0;
+	font-size: var(--sl-text-xs);
+	font-weight: 620;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+}
+.provenance-text {
+	margin: 0.4rem 0 0;
+	font-size: var(--sl-text-sm);
+	line-height: 1.6;
+	color: var(--sl-color-gray-3);
+	max-width: 42rem;
+}
+
+/* ==========================================================================
+   Motion preferences
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+	.hero-btn,
+	.card,
+	.sidebar-content a,
+	.sl-markdown-content a {
+		transition: none;
+	}
+}

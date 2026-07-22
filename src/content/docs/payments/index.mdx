@@ -1,0 +1,145 @@
+---
+title: Which payment gateway should you use in Zambia?
+description: A practical guide to Zambian payment gateways — mobile money and card acceptance, setup fees, transaction rates and settlement times for DPO, Lenco, PawaPay, 543 Konse Konse, Tingg and others.
+verified:
+  date: 2026-07-19
+  level: hearsay
+volatile: true
+sidebar:
+  order: 1
+---
+
+import { Aside } from '@astrojs/starlight/components'
+
+<Aside type="caution" title="Community-sourced — help us verify it">
+Most of this page is graded `hearsay`: real practitioners reported it, but nobody re-checked it
+against a provider's own pricing page. Fees and availability in this market change fast.
+**Check anything you are about to act on, then [update this page](/contributing/).**
+</Aside>
+
+This is the most-asked question in Zambian developer communities — asked over and over, and
+re-answered from memory every time.
+
+## The short answer
+
+**First decide whether you need cards, because that changes everything.**
+
+| You need | Start with | Why |
+| --- | --- | --- |
+| **Mobile money only** (most local products) | PawaPay, 543 Konse Konse (cGrate), Lipila | Cheapest rates, simplest onboarding, no card compliance burden |
+| **Cards as well** | DPO | As of mid-2026 it is the option practitioners still name for cards. See [card payments](/payments/card-payments/) — the situation is bad. |
+| **International customers** | A foreign entity + Stripe, or a merchant-of-record | See [receiving international payments](/payments/receiving-international-payments/) |
+| **Recurring subscriptions on mobile money** | Nothing does this | See [below](#subscriptions-do-not-work-on-mobile-money) |
+
+## Do not pay a setup fee without asking why
+
+Setup fees in this market range from **zero to K12,000** for functionally similar integrations,
+and the fee often disappears if you do the integration yourself.
+
+Reported setup fees:
+
+| Provider | Reported setup fee | Date reported |
+| --- | --- | --- |
+| Lipila (Hobbiton) | Free | Apr 2026 |
+| 543 Konse Konse / cGrate | Free if you self-integrate — but $1,000 and "K5,800" also reported | Sep 2025 / Oct 2023 |
+| DPO | None, free test environment | Confirmed by 4 people, Oct 2023; also Feb 2025 |
+| Digital PayGo | None if you self-integrate | Apr 2026 |
+| Tingg (Cellulant) | $500 or $1,000 — contested | Oct 2023 / Mar 2024 |
+| Kazang | $2,000 "commitment fee" | Oct 2023 |
+| ZynlePay | K7,000 | Apr 2026 |
+| PrimePay / PrimeNet | K12,000 | Aug 2025, quoted by its own staff |
+
+One practitioner's argument against them, which the wiki finds sound: aggregators are not themselves
+charged a once-off integration fee by MTN, Airtel or Zamtel, so a setup fee is a cost being passed
+to you rather than one being incurred.
+
+<Aside type="note">
+**Contested.** DPO's setup fee was once reported as ~K5,000 and corrected the same day by four
+separate people who had onboarded without paying anything. The "no setup fee" position is far
+better supported.
+</Aside>
+
+## Transaction rates people report paying
+
+Directionally accurate; **verify before you build a margin on any of these.**
+
+| Provider | Reported rate | Date |
+| --- | --- | --- |
+| cGrate / 543 Konse Konse | 1.5% mobile money | Aug 2025, Apr 2026 |
+| Digital PayGo | 1.5% | Apr 2026 |
+| Tilt (Zoona) | 2.5% + K1,000/month minimum commission | Dec 2023 |
+| eLipa | ~2.5% (pre-launch estimate) | Oct 2023 |
+| Direct MNO integration | ~2% | Mar 2025 |
+| PrimePay / PrimeNet | 3% mobile, 4% card | Aug 2025 |
+| Tumeny | 3% or 4% — contested in the same thread | Mar 2024 |
+| Lenco / BroadPay | 3.5% mobile, 3.8% card | Dec 2023 / Mar 2024 |
+| Tingg (Cellulant) | "rounds off to almost 5%" | Mar 2024 |
+
+Going direct to each mobile network is cheaper per transaction but you then manage three
+integrations, three reconciliations and three floats. The commonly given advice is that a single
+aggregator merchant account is worth the spread unless volume is high.
+
+## Settlement — ask before you integrate
+
+| Provider | Reported settlement | Date |
+| --- | --- | --- |
+| Lenco / BroadPay | Instant on mobile money, T+1 local cards, T+8 international | Jul 2024 |
+| Sparco (pre-Lenco) | Daily to bank above ~K1,000 | Oct 2023 |
+| DPO | T+2, auto-settles above ~$100 balance | Oct 2024 / Oct 2023 |
+
+DPO settlement is the single most repeated operational complaint in community discussions —
+"the pain point seems to be withdrawing collected funds, it takes loooong" (Feb 2024), and one
+report of a settlement outstanding for over a month (Oct 2023).
+
+## Subscriptions do not work on mobile money
+
+This surprises people repeatedly, so it is worth stating plainly:
+
+**Zambian mobile money has no card-style recurring debit.** You cannot pull funds on a schedule.
+Asked directly in June 2026 whether auto-payments were possible on mobile money, the answer from the
+group's most experienced payments contributor was simply "Nope."
+
+Workarounds people actually use:
+
+- **Prompt-and-remind** — notify the user, they approve each cycle. What most local products do.
+- **A wallet you top up** — the user funds a balance you draw down. Adds float and, depending on how
+  you hold the money, potentially a regulatory obligation. See [regulation](#do-you-need-a-boz-licence).
+- **Card debit orders** — works, but you need card acceptance and possibly PCI DSS compliance.
+- **A merchant-of-record for foreign customers** — several people settled on this for SaaS in 2026.
+
+## Do you need a BOZ licence?
+
+**Usually not, if you use somebody else's rails.** The consistent answer from the community:
+you need a Bank of Zambia licence if you **hold customer funds** or want to connect to the
+National Financial Switch. If you are calling an existing gateway's API and the money sits with
+the mobile network or the aggregator, you generally do not.
+
+<Aside type="danger" title="Do not rely on this wiki for licensing">
+Cost and duration estimates in the community range from "less than K5,000" to "$70,000 or more",
+and from three months to three years. These cannot all be right. Nobody has reconciled them.
+
+Get requirements from the Bank of Zambia directly — their payment systems department publishes
+designation requirements and, per one contributor, responds to meeting requests.
+This page will carry real figures only when someone sources them primarily.
+</Aside>
+
+## Known open questions
+
+Asked in the community and never satisfactorily answered. If you know, you can fix these:
+
+- **What does DPO actually charge per transaction?** Asked Sep 2023. Never answered, anywhere, in
+  three years of community discussions.
+- **What are Flutterwave's rates for recurring payments in Zambia?** Asked Apr 2025. Zero replies.
+- **What are the withdrawal fees and minimums** across the main gateways? Asked Jan 2025 and
+  Sep 2025. Zero replies both times.
+- **How do you integrate with the Government Service Bus (GSB) for payment routing?** Asked May 2026.
+  Zero replies.
+- **Which gateways impose API rate limits?** Answered contradictorily and never resolved.
+
+## Provider pages
+
+- [DPO](/providers/dpo/) — the card default, and the most complained-about
+- [Lenco (BroadPay)](/providers/lenco/) — mobile money across all three MNOs, cards long down
+- PawaPay — the 2026 favourite for mobile money. Page not written yet.
+
+See the [provider comparison](/payments/comparison/) for the full side-by-side table.
