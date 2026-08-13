@@ -24,6 +24,7 @@ Blank cells indicate **no data available**. Dates in brackets indicate when the 
 | --- | --- | --- | --- | --- | --- |
 | [DPO](/providers/dpo/) | Yes | Yes — the 2026 default | None; free test env (Oct 2023) | **Unknown** | T+2, auto above ~$100 (Oct 2023–Oct 2024) |
 | Lenco (BroadPay, formerly Sparco) | Yes | Down since ~early 2025 | | 3.5% mobile, 3.8% card (Dec 2023–Mar 2024) | Instant MM, T+1 local cards, T+8 intl (Jul 2024) |
+| [GeePay](/providers/geepay/) | Yes — all three MNOs | | | | |
 | PawaPay | Yes — widely adopted as of 2026 | | | | |
 | 543 Konse Konse (cGrate) | Yes | | Free if self-integrated; $1,000 and K5,800 also reported (2023–2025) | 1.5% mobile (Aug 2025–Apr 2026) | |
 | Lipila (Hobbiton) | Yes | | Free (Apr 2026) | | |
@@ -55,6 +56,8 @@ Blank cells indicate **no data available**. Dates in brackets indicate when the 
 ## Provider pages
 
 - [DPO](/providers/dpo/) — the primary card-processing option
+- [Lenco (BroadPay)](/providers/lenco/) — mobile money across all three MNOs
+- [GeePay](/providers/geepay/) — mobile-money collections across all three MNOs
 
-Pages for Lenco and PawaPay have not been written yet.
+A PawaPay page has not been written yet.
 [Contribute a provider page](/contributing/).
