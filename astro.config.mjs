@@ -3,7 +3,7 @@ import starlight from '@astrojs/starlight'
 
 // IMPORTANT: set this to your real domain before launch.
 // The canonical URL and sitemap are generated from it — search engines need it correct.
-const SITE = 'https://zambian-dev-wiki.pages.dev'
+const SITE = 'https://zambia-dev-wiki.pages.dev'
 
 export default defineConfig({
   site: SITE,
