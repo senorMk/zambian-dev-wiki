@@ -2,7 +2,7 @@
 title: Which payment gateway should you use in Zambia?
 description: A practical guide to Zambian payment gateways — mobile money and card acceptance, setup fees, transaction rates and settlement times for DPO, Lenco, PawaPay, 543 Konse Konse, Tingg and others.
 verified:
-  date: 2026-07-19
+  date: 2026-10-22
   level: hearsay
 volatile: true
 sidebar:
@@ -12,9 +12,7 @@ sidebar:
 import { Aside } from '@astrojs/starlight/components'
 
 <Aside type="caution" title="Community-sourced — help us verify it">
-Most of this page is graded `hearsay`: real practitioners reported it, but nobody re-checked it
-against a provider's own pricing page. Fees and availability in this market change fast.
-**Check anything you are about to act on, then [update this page](/contributing/).**
+Most of this page is graded `hearsay`: real practitioners reported it, but nobody re-checked it against a provider's own pricing page. Fees and availability in this market change fast. The PayBoss additions use BGS information from 2025. Only these additions were checked on 2026-10-22; current PayBoss terms are not confirmed. **Check anything you are about to act on, then [update this page](/contributing/).**
 </Aside>
 
 This is the most common question in Zambian developer communities.
@@ -32,8 +30,7 @@ This is the most common question in Zambian developer communities.
 
 ## Do not pay a setup fee without asking why
 
-Setup fees in this market range from **zero to K12,000** for functionally similar integrations,
-and the fee often disappears if you do the integration yourself.
+Setup fees quoted in Kwacha below range from **zero to K20,000**. Some reports state that providers remove the fee if you do the integration yourself.
 
 | Provider | Setup fee | Date reported |
 | --- | --- | --- |
@@ -45,13 +42,12 @@ and the fee often disappears if you do the integration yourself.
 | Kazang | $2,000 commitment fee | Oct 2023 |
 | ZynlePay | K7,000 | Apr 2026 |
 | PrimePay / PrimeNet | K12,000 | Aug 2025 |
+| [PayBoss (BGS)](/providers/payboss/) | K20,000; see [pricing](/providers/payboss/#pricing-2025) | 2025 BGS pricing |
 
-Aggregators are not themselves charged a once-off integration fee by MTN, Airtel or Zamtel, so a
-setup fee represents a margin rather than a pass-through cost.
+Aggregators are not themselves charged a once-off integration fee by MTN, Airtel or Zamtel, so a setup fee represents a margin rather than a pass-through cost.
 
 <Aside type="note">
-**Contested.** DPO's setup fee has been reported as ~K5,000, but multiple sources contradict
-this and indicate no setup fee is charged. The weight of evidence favours no fee.
+**Contested.** DPO's setup fee has been reported as ~K5,000, but multiple sources contradict this and indicate no setup fee is charged. The weight of evidence favours no fee.
 </Aside>
 
 ## Transaction rates
@@ -69,10 +65,11 @@ Directionally accurate; **verify before you build a margin on any of these.**
 | Tumeny | 3% or 4% (contested) | Mar 2024 |
 | Lenco / BroadPay | 3.5% mobile, 3.8% card | Dec 2023 / Mar 2024 |
 | Tingg (Cellulant) | ~5% | Mar 2024 |
+| [PayBoss (BGS)](/providers/payboss/) | Fixed ZMW 0.80–7.50 by mobile money range; 4% cards; 2% bulk disbursements | 2025 BGS pricing |
 
-Going direct to each mobile network is cheaper per transaction but requires managing three
-integrations, three reconciliations and three floats. A single aggregator merchant account is
-generally worth the spread unless volume is high.
+PayBoss mobile money fees are fixed amounts, not percentages. See its [fee table](/providers/payboss/#pricing-2025).
+
+Compare fees against your expected transaction amounts and volume. Direct integration with each mobile network requires separate integrations, reconciliation, and funding balances.
 
 ## Settlement — ask before you integrate
 
@@ -82,36 +79,27 @@ generally worth the spread unless volume is high.
 | Sparco (pre-Lenco) | Daily to bank above ~K1,000 | Oct 2023 |
 | DPO | T+2, auto-settles above ~$100 balance | Oct 2024 / Oct 2023 |
 
-DPO settlement is a common operational pain point. Withdrawing collected funds can be slow,
-with delays of a month or more reported in some cases.
+DPO settlement is a common operational pain point. Withdrawing collected funds can be slow, with delays of a month or more reported in some cases.
 
 ## Subscriptions do not work on mobile money
 
-**Zambian mobile money has no card-style recurring debit.** You cannot pull funds on a schedule.
-There is no auto-debit or standing-order mechanism available through mobile money.
+**Zambian mobile money has no card-style recurring debit.** You cannot pull funds on a schedule. There is no auto-debit or standing-order mechanism available through mobile money.
 
 Common workarounds:
 
 - **Prompt-and-remind** — notify the user, they approve each cycle. What most local products do.
-- **A wallet you top up** — the user funds a balance you draw down. Adds float and, depending on how
-  you hold the money, potentially a regulatory obligation. See [regulation](#do-you-need-a-boz-licence).
+- **A wallet you top up** — the user funds a balance you draw down. Adds float and, depending on how you hold the money, potentially a regulatory obligation. See [regulation](#do-you-need-a-boz-licence).
 - **Card debit orders** — works, but you need card acceptance and possibly PCI DSS compliance.
 - **A merchant-of-record for foreign customers** — a common approach for SaaS products.
 
 ## Do you need a BOZ licence?
 
-**Usually not, if you use somebody else's rails.** A Bank of Zambia licence is required if you
-**hold customer funds** or want to connect to the National Financial Switch. If you are calling
-an existing gateway's API and the money sits with the mobile network or the aggregator, you
-generally do not need one.
+**Usually not, if you use somebody else's rails.** A Bank of Zambia licence is required if you **hold customer funds** or want to connect to the National Financial Switch. If you are calling an existing gateway's API and the money sits with the mobile network or the aggregator, you generally do not need one.
 
 <Aside type="danger" title="Do not rely on this wiki for licensing">
-Cost and duration estimates range widely, from less than K5,000 to $70,000 or more, and from
-three months to three years. These figures are unreconciled and likely reflect different licence
-categories.
+Cost and duration estimates range widely, from less than K5,000 to $70,000 or more, and from three months to three years. These figures are unreconciled and likely reflect different licence categories.
 
-Get requirements from the Bank of Zambia directly — their payment systems department publishes
-designation requirements and accepts meeting requests.
+Get requirements from the Bank of Zambia directly — their payment systems department publishes designation requirements and accepts meeting requests.
 </Aside>
 
 ## Known open questions
@@ -121,8 +109,7 @@ The following questions remain unanswered. If you know, [contribute](/contributi
 - **What does DPO actually charge per transaction?** No confirmed rate is publicly available.
 - **What are Flutterwave's rates for recurring payments in Zambia?** Unknown.
 - **What are the withdrawal fees and minimums** across the main gateways? Not documented.
-- **How do you integrate with the Government Service Bus (GSB) for payment routing?** No public
-  documentation found.
+- **How do you integrate with the Government Service Bus (GSB) for payment routing?** No public documentation found.
 - **Which gateways impose API rate limits?** Conflicting information; unresolved.
 
 ## Provider pages
@@ -130,6 +117,7 @@ The following questions remain unanswered. If you know, [contribute](/contributi
 - [DPO](/providers/dpo/) — the primary option for card acceptance
 - [Lenco (BroadPay)](/providers/lenco/) — mobile money across all three MNOs; card acceptance currently unavailable
 - [GeePay](/providers/geepay/) — mobile-money collections across all three MNOs; firsthand integration notes
+- [PayBoss (BGS)](/providers/payboss/) — services, 2025 pricing, and merchant KYC requirements
 - PawaPay — widely used for mobile money. Page not written yet.
 
 See the [provider comparison](/payments/comparison/) for the full side-by-side table.
