@@ -2,14 +2,15 @@
 title: 543 Konse Konse (cGrate Africa)
 description: Community notes on 543 Konse Konse as a Zambian mobile money aggregator — SOAP API integration, timeout handling, polling strategy, response code traps and reconciliation gotchas.
 verified:
-  date: 2026-07-22
+  date: 2026-11-13
+  by: senorMk
   level: reported
 volatile: true
 ---
 
 :::caution[Reported, not officially verified]
-Based on first-hand integration experience (2025-2026), not on cGrate's own published documentation.
-Details may have changed since the last integration. **Verify before acting, then [update this page](/contributing/).**
+Based on integration experience and merchant-specific information, not on cGrate's published
+documentation. Details can change. **Verify before acting, then [update this page](/contributing/).**
 :::
 
 543 Konse Konse is a **mobile money aggregator** operated by cGrate Africa. It sits between your
@@ -21,13 +22,37 @@ Money, MTN MoMo, and Zamtel Money**.
 | | |
 | --- | --- |
 | **Supports** | Mobile money (Airtel, MTN, Zamtel) via aggregation |
-| **Setup fee** | Not publicly listed |
-| **Transaction fee** | **Negotiated per merchant.** Not publicly listed. |
-| **Settlement** | To merchant wallet on Konse Konse platform |
+| **Setup fee** | Merchant-specific. See the reported example below. |
+| **Transaction fee** | Negotiated per merchant. See the reported example below. |
+| **Settlement** | To merchant wallet on Konse Konse platform. Scheduled sweeps are available. |
 | **API style** | SOAP XML (methods use a `kon:` prefix) |
 | **Website** | [www.543.co.zm](https://www.543.co.zm) |
 | **Support email** | oursystemsarealwaysonline@cgrate.co.zm |
 | **Address** | Plot No 35214, Alick Nkhata Road, Kalingalinga, Lusaka |
+
+## Fees and settlement
+
+One merchant was quoted a ZMW 20,000 integration setup fee, a 1.8% transaction service fee,
+and ZMW 7.50 per payout regardless of the payout amount. The date of this quote is not available.
+These amounts are merchant-specific and may change. Confirm your fees, tax, and fee basis with
+cGrate before you proceed.
+
+cGrate can set up daily, weekly, or monthly sweeps of funds. Confirm the destination, timing,
+minimum amount, and whether each sweep incurs a payout fee.
+
+## Merchant portal and onboarding
+
+The merchant portal provides transaction visibility and reports. cGrate can also set up custom
+reports for a finance team on a daily, weekly, or monthly schedule.
+
+Account creation requirements include:
+
+- Certificate of incorporation and lease agreement.
+- Organisation ZRA TPIN certificate.
+- Front and back photos of each director's NRC and a photo of each director.
+- A phone number for notifications and an email address for portal login.
+
+Confirm the current requirements with cGrate before you submit them.
 
 ## API overview
 
