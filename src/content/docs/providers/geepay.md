@@ -2,16 +2,16 @@
 title: GeePay (Zambia)
 description: Integrator notes on GeePay as a Zambian mobile-money collections gateway — auth model, the collect-then-poll flow, webhooks, recurring-billing workaround and unknown fees.
 verified:
-  date: 2026-08-09
+  date: 2026-11-13
   by: senorMk
   level: reported
 volatile: true
 ---
 
 :::note[Firsthand integration experience — pricing still unverified]
-The integration notes below come from a developer who runs GeePay mobile-money collections in
-a production Zambian product. The **API shape and flow are firsthand**. The **fees, rates and
-settlement terms are not** — GeePay quotes those per merchant and they are marked unknown here.
+The integration notes below include experience from a production Zambian product. The fee
+profile described below is one merchant's report, not a confirmed rate for all merchants.
+Settlement terms remain unknown.
 Disclosure: the contributor integrates GeePay but is not affiliated with or employed by GeePay.
 **Verify commercial terms before acting, then [update this page](/contributing/).**
 :::
@@ -52,11 +52,47 @@ asynchronous and poll for the result.**
 **Correlate on your own reference.** Send a reference you generate and match the callback and the
 status poll back to it. Do not rely on GeePay's transaction ID being present at every step.
 
+### Collection reference and retries
+
+In July 2026, GeePay support told one production integrator that mobile networks require an
+RFC 4122 version 4 UUID in `X-Transaction-Ref`. A different format led to a callback with
+"Transaction was refused." Generate a reference for each payment attempt and save it before
+you send the collection request. Use the same reference when you check that attempt's status.
+
+A timeout or an unclear response does not prove that the collection failed. The request can
+reach GeePay even if the response does not reach your server. Keep the payment pending and check
+the original reference before you start another collection. Handle a clear rejection separately.
+Use a bounded polling period and send unresolved payments for review. Do not mark a payment as
+failed only because the polling period ended.
+
+A callback can arrive before the collection request finishes. Save the reference before the
+request, and prevent a later pending update from overwriting a confirmed result.
+
+### API versions
+
+In November 2026, one production integrator reported HTTP 403 responses from the old production
+gateway and changed its integration to the v2 API. That v2 change passed unit tests, but it was
+not verified with a sandbox or production payment. Confirm the current base URL, endpoint paths,
+and access requirements with GeePay before release.
+
+An earlier v1 sandbox test used `/v1/oauth/token` and `/v1/mobile-money/collect`. The status
+request required `Content-Type: application/json` on the `GET`. These are historical sandbox
+observations, not verified v2 requirements.
+
 ### Webhook authentication
 
-The callback is **not cryptographically signed**. GeePay authenticates it with a **shared secret
-token** that you configure and it echoes back. Check that token on every callback and reject the
-request if it does not match. Keep the token out of source control.
+The callbacks observed by the contributor were not cryptographically signed. One integration
+adds its own secret token to the callback URL and checks that token on receipt. This is a
+merchant-side safeguard; it does not establish that GeePay signs callbacks or provides a
+separate token authentication feature. Protect the URL and token from logs and source control.
+Check the transaction status with GeePay before you settle a payment.
+
+## Collection fees
+
+In November 2026, one merchant's GeePay fee profile displayed 1.8% with a K1 minimum for
+Airtel, MTN, Zamtel, and ZEDMOBILE collections. The same profile also displayed a conflicting
+0% note. The fee basis and rounding were not confirmed. This report does not establish the
+rate for other merchants. Ask GeePay to confirm your fee, minimum, and rounding in writing.
 
 ## Recurring billing (subscriptions)
 
@@ -87,8 +123,8 @@ individually approved collections.
 
 If you have a GeePay merchant account, you can answer these for everyone. [Open a PR](/contributing/).
 
-- **What does GeePay charge per collection?** No confirmed rate. The biggest gap on this page.
+- **What does GeePay charge per collection?** Confirm the reported profile and its conflicting note.
 - **What is the setup fee, if any?**
 - **What is the settlement SLA and minimum threshold?**
 - **Which networks settle instantly, and which lag?**
-- **Does GeePay offer signed webhooks** as an alternative to the shared-token callback?
+- **Does GeePay offer signed webhooks** or another callback authentication method?
